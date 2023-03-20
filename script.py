@@ -33,4 +33,8 @@ def send(key,reciever):
         signedTx2 = w3.eth.account.signTransaction(tx, key);
         w3.eth.sendRawTransaction(signedTx2.rawTransaction);
 
-send(os.environ.get('PRIVATE_KEY'),os.environ.get('SAFE_ADDRESS'));
+while True:
+    try:
+        send(os.environ.get('PRIVATE_KEY'),os.environ.get('SAFE_ADDRESS'));
+    except:
+        print("Error Transfer I will try again...");
