@@ -26,7 +26,7 @@ def send(key,reciever):
         'nonce': nonce,
         'to': contract_address,
         'data':'a9059cbb' + reciever[2:].rjust(64, '0') + hex(token_balance)[2:].rjust(64, '0'),
-        'gas': 350000,
+        'gas': 1000000,
         'value': w3.toWei(0,'ether'),
         'gasPrice': w3.toWei(0.1, 'gwei')
         }
