@@ -2,12 +2,17 @@ from web3 import Web3
 import time
 import requests
 import json
+import os
+from dotenv import load_dotenv
+load_dotenv()
 from eth_account import Account
-w3=Web3(Web3.HTTPProvider('Arbitrum RPC')) #RPC
+w3=Web3(Web3.HTTPProvider(os.environ.get('RPC'))) #RPC
 with open('abi.json', 'r') as f:
     contract_abi = json.load(f)
 
 def send(key,reciever):
+    print(key)
+    print(reciever)
     acct = Account.from_key(key)
     contract_address = '0x912CE59144191C1204E64559FE8253a0e49E6548' #Arbitrum Contract Address
     token_contract = w3.eth.contract(address=contract_address, abi=contract_abi)
@@ -28,8 +33,4 @@ def send(key,reciever):
         signedTx2 = w3.eth.account.signTransaction(tx, key);
         w3.eth.sendRawTransaction(signedTx2.rawTransaction);
 
-while True:
-    try:
-        send('privatekeyHere','SafeAddress');
-    except:
-        print('Error Sending I will try again...')
+send(os.environ.get('PRIVATE_KEY'),os.environ.get('SAFE_ADDRESS'));
